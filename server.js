@@ -11,7 +11,7 @@ http.createServer((request, response) => {
         if (err) {
           console.log(err);
         } else {
-          Console.log ('Added to log.');
+          console.log ('Added to log.');
         }
     });
     
@@ -33,5 +33,5 @@ http.createServer((request, response) => {
 
  }).listen(8080);
     
-console.log('My First Node test server is runningon Port 8080.');
+console.log('My First Node test server is running on Port 8080.');
 
