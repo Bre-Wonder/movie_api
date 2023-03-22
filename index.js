@@ -1,5 +1,14 @@
-const express = require('express');
-const app = express ();
+const express = require('express'),
+    fs = require('fs'),
+    morgan = require('morgan'),
+    path = require('path');
+
+const app = express();
+
+const accessLogStream = fs.createWriteStream(path.join(__dirname, 'memoryLog.text'), {flags: 'a'})
+
+app.use(morgan('combined', {stream: accessLogStream}));
+    
 
 let topMovies = [
     {
@@ -43,10 +52,10 @@ app.get('/', (req, res) => {
 });
 
 app.get('/documentation', (req, res) => {
-    res.sendFile('public/documentation.html', { root: __dirname});
+    res.send('public/documentation.html', { root: __dirname});
 });
 
-app.use('/documentation.html', express.static('public'));
+app.use('/documentation', express.static('public'));
 
 app.get('/movies', (req, res) => {
     res.json(topMovies);
