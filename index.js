@@ -61,6 +61,11 @@ app.get('/movies', (req, res) => {
     res.json(topMovies);
 });
 
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('Whoops, something went wrong!');
+});
+
 app.listen(8080, () => {
     console.log ('Your movies are being spied on');
-})
+});
