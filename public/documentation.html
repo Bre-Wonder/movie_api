@@ -1,8 +1,93 @@
-API Title: Movie Features
+<html>
 
-Function: A server-side web application that displays movie titles, genres, and directors. The user will be able to sign up, update their personal information, and create a list of their favorite movies.
 
-Request                            URL                    Response
-"Get a list of top 10 movies"   /movies
-Find documentation on API       /documentation
-The main page of the index      /
+<body>
+<p>API Title: Movie Features</p>
+
+<p>A server-side web application that displays movie titles, genres, and directors. The user will be able to sign up, update their personal information, and create a list of their favorite movies.</p>
+
+<table>
+    <tr>
+      <th>Endpoint URL</th>
+      <th>HTTP Method</th>
+      <th>Endpoint Description</th>
+      <th>Query Parameters</th>
+      <th>Request body data format w/ example</th>
+      <th>Response body data format</th>
+    </tr>
+    <tr>
+      <td>/movies</td>
+      <td>GET</td>
+      <td>Get a list of all movies</td>
+      <td>request + response </td>
+      <td>None</td>
+      <td>A JSON object indluding the titles of all movies</td>
+    </tr>
+    <tr>
+      <td>/movies/:movieData</td>
+      <td>GET</td>
+      <td>Return features about movie</td>
+      <td>request + response </td>
+      <td>None</td>
+      <td>A JSON object holding data about all movie details</td>
+    </tr>
+    <tr>
+      <td>/movies/genre/:genreName</td>
+      <td>GET</td>
+      <td>Return data about the movie genre</td>
+      <td>request + response </td>
+      <td>None</td>
+      <td>A JSON object holding data about a movie's genre</td>
+    </tr>
+    <tr>
+      <td>/movies/directors/:directorName</td>
+      <td>GET</td>
+      <td>Return data about director </td>
+      <td>request + response </td>
+      <td>None</td>
+      <td>A JSON object holding data about the movie's director</td>
+    </tr>
+    <tr>
+        <td>/users</td>
+        <td>POST</td>
+        <td>Create a New User</td>
+        <td>request + response </td>
+        <td>A JSON objust with new user: Juliet O'hara</td>
+        <td> A JSON object hold the data about a user {name: "Juliet O'hara", username: detective123} </td>
+        </tr>
+      <tr>
+        <td>/users/:id</td>
+        <td>PUT</td>
+        <td>Update User's Information</td>
+        <td>request + response </td>
+        <td>None</td>
+        <td>A JSON object holds the updated username for the user {name: "Juliet O'hara", username: psyschoffice}</td>
+      </tr>
+      <tr>
+        <td>users/:id/:movieTitle</td>
+        <td>POST</td>
+        <td>Add movie to Favorites List</td>
+        <td>request + response </td>
+        <td>Movie Added to Favorites {movieTitle: "La La Land"}</td>
+        <td>A message that movieTitle has been successfully added to Favorite's List</td>
+      </tr>
+      <tr>
+        <td>users/:id/:movieTitle</td>
+        <td>DELETE</td>
+        <td>Allow user to delete a movie from Favorites List</td>
+        <td>request + response </td>
+        <td>None</td>
+        <td>A message that movie has been removed from Favorite's List</td>
+      </tr>
+      <tr>
+        <td>users/:id/:movieTitle</td>
+        <td>DELETE</td>
+        <td>Allow existing user to deregister account</td>
+        <td>request + response  </td>
+        <td>None</td>
+        <td>A message that user has been successfully deleted</td>
+      </tr>
+  </table>
+
+</body>
+</html>
