@@ -24,7 +24,7 @@ let topMovies = [
         title: 'Sisterhood of the Traveling Pants'
     },
     {
-        title: 'Emperor New Groove'
+        title: 'Emperor\'s New Groove'
     },
     {
         title: 'The Little Mermaid'
@@ -61,7 +61,7 @@ app.get('/movies', (req, res) => {
     res.json(topMovies);
 });
 
-app.get('/movie/:movieName', (req, res) => {
+app.get('/movies/:movieName', (req, res) => {
     res.send('Here are all the movie Titles')
 });
 
@@ -69,7 +69,7 @@ app.get('/movies/genre/:genreName', (req, res) => {
     res.send('Listed is the genre of the movies')
 });
 
-app.get('/movie/director/:directorNames', (req, res) => {
+app.get('/movies/director/:directorNames', (req, res) => {
     res.send('Listed is the name of the Director')
 });
 
