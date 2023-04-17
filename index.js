@@ -61,6 +61,38 @@ app.get('/movies', (req, res) => {
     res.json(topMovies);
 });
 
+app.get('/movie/:movieName', (req, res) => {
+    res.send('Here are all the movie Titles')
+});
+
+app.get('/movies/genre/:genreName', (req, res) => {
+    res.send('Listed is the genre of the movies')
+});
+
+app.get('/movie/director/:directorNames', (req, res) => {
+    res.send('Listed is the name of the Director')
+});
+
+app.post('/users', (req, res) => {
+    res.send('You created a new user')
+});
+
+app.put('/users/:id', (req, res) => {
+    res.send('You updated info for one of our users')
+});
+
+app.post('/users/:id/:movieTitle', (req, res) => {
+    res.send('You added a movie to your favorites list')
+});
+
+app.delete('/users/:id/:movieTitle', (req, res) => {
+    res.send('You have taken this movie off of your favorites list')
+});
+
+app.delete('/users/:id', (req, res) => {
+    res.send('You have delete this user')
+});
+
 app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).send('Whoops, something went wrong!');
