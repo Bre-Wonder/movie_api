@@ -90,7 +90,7 @@ app.delete('/users/:id/:movieTitle', (req, res) => {
 });
 
 app.delete('/users/:id', (req, res) => {
-    res.send('You have delete this user')
+    res.send('You have deleted this user')
 });
 
 app.use((err, req, res, next) => {
