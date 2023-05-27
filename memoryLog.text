@@ -17,3 +17,5 @@
 ::1 - - [22/Apr/2023:18:01:24 +0000] "DELETE /users/:id/:movieTitle HTTP/1.1" 200 52 "-" "PostmanRuntime/7.32.2"
 ::1 - - [22/Apr/2023:18:01:41 +0000] "DELETE /users/:id HTTP/1.1" 200 25 "-" "PostmanRuntime/7.32.2"
 ::1 - - [22/Apr/2023:18:02:02 +0000] "DELETE /users/:id HTTP/1.1" 200 25 "-" "PostmanRuntime/7.32.2"
+::1 - - [22/Apr/2023:18:03:40 +0000] "DELETE /users/:id HTTP/1.1" 200 25 "-" "PostmanRuntime/7.32.2"
+::1 - - [22/Apr/2023:18:04:26 +0000] "DELETE /users/:id HTTP/1.1" 200 26 "-" "PostmanRuntime/7.32.2"
