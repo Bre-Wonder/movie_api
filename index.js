@@ -10,12 +10,13 @@ mongoose.connect('mongodb://localhost:27017/myFlixDB',
 const express = require('express'),
     fs = require('fs'),
     morgan = require('morgan'),
-    path = require('path'),
-    bodyParser = require('body-parser');
+    path = require('path');
+
+const bodyParser = require('body-parser');
 
 const app = express();
 app.use(bodyParser.json());
-app.use(bodyParser.urlendcoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 const accessLogStream = fs.createWriteStream(path.join(__dirname, 'memoryLog.text'), {flags: 'a'})
 
@@ -101,7 +102,7 @@ app.post('/users', (req, res) => {
               .then ((user) =>{res.status(201).json(user) })
             .catch((error) => {
                 console.error(error);
-                res.status(500).send('Error:' + error);
+                res.status(500).send('Error: ' + error);
             })
           }
         })
