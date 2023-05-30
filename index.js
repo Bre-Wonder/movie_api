@@ -10,9 +10,12 @@ mongoose.connect('mongodb://localhost:27017/myFlixDB',
 const express = require('express'),
     fs = require('fs'),
     morgan = require('morgan'),
-    path = require('path');
+    path = require('path'),
+    bodyParser = require('body-parser');
 
 const app = express();
+app.use(bodyParser.json());
+app.use(bodyParser.urlendcoded({ extended: true }));
 
 const accessLogStream = fs.createWriteStream(path.join(__dirname, 'memoryLog.text'), {flags: 'a'})
 
@@ -83,7 +86,29 @@ app.get('/movies/director/:directorNames', (req, res) => {
 });
 
 app.post('/users', (req, res) => {
-    res.send('You created a new user')
+    Users.findOne({ Username: req.body.Username})
+        .then ((user) => {
+          if (user) {
+            return res.status(400).send(req.body.Username + 'already exist');
+          } else {
+            Users
+              .create({
+                Username: req.body.Username,
+                Password: req.body.Password,
+                Email: req.body.Email,
+                Birthday: req.body.Birthday
+              })
+              .then ((user) =>{res.status(201).json(user) })
+            .catch((error) => {
+                console.error(error);
+                res.status(500).send('Error:' + error);
+            })
+          }
+        })
+        .catch((error) => {
+            console.error(error);
+            res.status(500).send('Error' + error);
+        });
 });
 
 app.put('/users/:id', (req, res) => {
