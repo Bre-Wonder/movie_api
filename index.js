@@ -74,8 +74,15 @@ app.get('/movies', (req, res) => {
     res.json(topMovies);
 });
 
-app.get('/movies/:movieName', (req, res) => {
-    res.send('Here are all the movie Titles')
+app.get('/movies/:movieTitle', (req, res) => {
+    Movies.findOne({ Title: req.params.movieTitle})
+        .then((movie) => {
+            res.json(movie);
+        })
+        .catch((err) => {
+           console.error(err);
+           res.status(500).send('Error: ' + err);
+        });
 });
 
 app.get('/movies/genre/:genreName', (req, res) => {
@@ -116,16 +123,39 @@ app.put('/users/:id', (req, res) => {
     res.send('You updated info for one of our users')
 });
 
-app.post('/users/:id/:movieTitle', (req, res) => {
-    res.send('You added a movie to your favorites list')
+//adding a favorite movies to a user's list
+app.post('/users/:Username/movies/:movieTitle', (req, res) => {
+    Users.findOneAndUpdate({ Username: req.params.Username }, {
+        $push: { FavoriteMovies: req.params.movieTitle }    
+    },
+    { new: true},
+    (err, updatedUser) => {
+        if (err) {
+            console.error(err);
+            res.status(500).send('Error: ' + err);
+        } else {
+            res.json(updatedUser);
+        }
+    });
 });
 
-app.delete('/users/:id/:movieTitle', (req, res) => {
+app.delete('/users/:Username/movies/:movieTitle', (req, res) => {
     res.send('You have taken this movie off of your favorites list')
 });
 
-app.delete('/users/:id', (req, res) => {
-    res.send('You have deleted this user')
+app.delete('/users/:Username', (req, res) => {
+    Users.findOneAndRemove({ Username: req.params.Username })
+      .then ((user) => {
+        if (!user) {
+            res.status(400).send(req.params.Username + ' was not found');
+        } else {
+          res.status (200).send(req.params.Username + ' was deleted.');
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500).send('Error: ' + err);
+      });
 });
 
 app.use((err, req, res, next) => {
