@@ -119,8 +119,25 @@ app.post('/users', (req, res) => {
         });
 });
 
-app.put('/users/:id', (req, res) => {
-    res.send('You updated info for one of our users')
+app.put('/users/:Username', (req, res) => {
+    Users.findOneAndUpdate({ Username: req.params.Username }, {
+    $set:
+        {
+            Username: req.body.Username,
+            Password: req.body.Password,
+            Email: req.body.Email,
+            Birthday: req.body.Birthday
+        }
+    },
+    {new: true},
+    (err, updateUser) => {
+        if(err) {
+            console.error(err);
+            res.status(500).send('Error: ' + err);
+        } else {
+          res.json(updatedUser);
+        }
+    });
 });
 
 //adding a favorite movies to a user's list
@@ -139,8 +156,13 @@ app.post('/users/:Username/movies/:movieTitle', (req, res) => {
     });
 });
 
+//COME BACK TO THIS ONE--
 app.delete('/users/:Username/movies/:movieTitle', (req, res) => {
-    res.send('You have taken this movie off of your favorites list')
+    Users.findOneAndRemove({Username: req.params.Username }, {
+        $push: { FavoriteMovies: req.params.movieTitle} // Is $push the right operator?
+    },
+    
+    )
 });
 
 app.delete('/users/:Username', (req, res) => {
