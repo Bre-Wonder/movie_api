@@ -184,13 +184,19 @@ app.post('/users/:Username/movies/:movieTitle', (req, res) => {
     });
 });
 
-//COME BACK TO THIS ONE--
+// delete a movie from user favorite movie list
 app.delete('/users/:Username/movies/:movieTitle', (req, res) => {
     Users.findOneAndRemove({Username: req.params.Username }, {
         $push: { FavoriteMovies: req.params.movieTitle} // Is $push the right operator?
     },
-    
-    )
+    (err, updatedUser) => {
+        if (err) {
+            console.error(err);
+            res.status(500).send('Error: ' + err);
+        } else {
+            res.json(updatedUser);
+        }
+    });
 });
 
 // deregister a user
