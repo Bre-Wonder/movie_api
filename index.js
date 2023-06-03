@@ -71,7 +71,14 @@ app.get('/documentation', (req, res) => {
 app.use('/documentation', express.static('public'));
 
 app.get('/movies', (req, res) => {
-    res.json(topMovies);
+    Movies.find()
+      .then ((movies) => {
+        res.status(201).json(movies);
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500).send('Error: ' + err);
+      });
 });
 
 app.get('/movies/:movieTitle', (req, res) => {
@@ -93,6 +100,7 @@ app.get('/movies/director/:directorNames', (req, res) => {
     res.send('Listed is the name of the Director')
 });
 
+//creating a user
 app.post('/users', (req, res) => {
     Users.findOne({ Username: req.body.Username})
         .then ((user) => {
@@ -119,6 +127,7 @@ app.post('/users', (req, res) => {
         });
 });
 
+//updating user information
 app.put('/users/:Username', (req, res) => {
     Users.findOneAndUpdate({ Username: req.params.Username }, {
     $set:
