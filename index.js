@@ -108,8 +108,8 @@ app.get('/movies/genre/:genreName', (req, res) => {
 });
 
 // find a movie director by director name
-app.get('/movies/director/:directorNames', (req, res) => {
-    Movies.findOne({ directorNames: req.params.directorNames})
+app.get('/movies/director/:directorName', (req, res) => {
+    Movies.findOne({ directorName: req.params.directorNames})
         .then((director) => {
             res.json(director);
         })
