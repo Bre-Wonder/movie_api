@@ -193,6 +193,7 @@ app.delete('/users/:Username/movies/:movieTitle', (req, res) => {
     )
 });
 
+// deregister a user
 app.delete('/users/:Username', (req, res) => {
     Users.findOneAndRemove({ Username: req.params.Username })
       .then ((user) => {
