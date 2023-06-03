@@ -71,6 +71,7 @@ app.get('/documentation', (req, res) => {
 
 app.use('/documentation', express.static('public'));
 
+// get a list of all movies
 app.get('/movies', (req, res) => {
     Movies.find()
       .then ((movies) => {
@@ -82,6 +83,7 @@ app.get('/movies', (req, res) => {
       });
 });
 
+// find movie by title
 app.get('/movies/:movieTitle', (req, res) => {
     Movies.findOne({ Title: req.params.movieTitle})
         .then((movie) => {
@@ -93,7 +95,7 @@ app.get('/movies/:movieTitle', (req, res) => {
         });
 });
 
-// find genre by genre name
+// find a movie genre by genre name
 app.get('/movies/genre/:genreName', (req, res) => {
     Movies.findOne({ genreName: req.params.genreName})
         .then((genre) => {
@@ -105,8 +107,16 @@ app.get('/movies/genre/:genreName', (req, res) => {
         });
 });
 
+// find a movie director by director name
 app.get('/movies/director/:directorNames', (req, res) => {
-    res.send('Listed is the name of the Director')
+    Movies.findOne({ directorNames: req.params.directorNames})
+        .then((director) => {
+            res.json(director);
+        })
+        .catch((err) => {
+            console.error(err);
+            res.status(500).send('Error: ' + err);
+        });
 });
 
 //creating a user
