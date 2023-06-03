@@ -13,6 +13,7 @@ const express = require('express'),
     path = require('path');
 
 const bodyParser = require('body-parser');
+const { generateKey } = require('crypto');
 
 const app = express();
 app.use(bodyParser.json());
@@ -92,8 +93,16 @@ app.get('/movies/:movieTitle', (req, res) => {
         });
 });
 
+// find genre by genre name
 app.get('/movies/genre/:genreName', (req, res) => {
-    res.send('Listed is the genre of the movies')
+    Movies.findOne({ genreName: req.params.genreName})
+        .then((genre) => {
+            res.json(genre);
+        })
+        .catch((err) => {
+            console.error(err);
+            res.status(500).send('Error: ' + err);
+        });
 });
 
 app.get('/movies/director/:directorNames', (req, res) => {
