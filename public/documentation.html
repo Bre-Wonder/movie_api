@@ -32,7 +32,7 @@
       <td>A JSON object holding data about all movie details</td>
     </tr>
     <tr>
-      <td>/movies/genre/:genreName</td>
+      <td>/genre/:genreName</td>
       <td>GET</td>
       <td>Return data about the movie by genre</td>
       <td>request + response </td>
@@ -40,7 +40,7 @@
       <td>A JSON object holding data about a movie's genre</td>
     </tr>
     <tr>
-      <td>/movies/director/:directorName</td>
+      <td>/director/:directorName</td>
       <td>GET</td>
       <td>Return data about a movie director </td>
       <td>request + response </td>
@@ -64,15 +64,15 @@
         <td>A JSON object holds the updated username for the user {name: "Juliet O'hara", username: psyschoffice}</td>
       </tr>
       <tr>
-        <td>/users/:Username/movies/:movieTitle</td>
+        <td>/users/:Username/movies/:movieId</td>
         <td>POST</td>
         <td>Add movie to Favorites List</td>
         <td>request + response </td>
-        <td>Movie Added to Favorites {movieTitle: "La La Land"}</td>
-        <td>A message that movieTitle has been successfully added to Favorite's List</td>
+        <td>Movie Added to Favorites {movieId: "64507fc2ed070ba0594ec4d0"}</td>
+        <td>A message that movie by its objectId has been successfully added to Favorite's List</td>
       </tr>
       <tr>
-        <td>/users/:Username/movies/:movieTitle</td>
+        <td>/users/:Username/movies/:movieId</td>
         <td>DELETE</td>
         <td>Allow user to delete a movie from Favorites List</td>
         <td>request + response </td>
