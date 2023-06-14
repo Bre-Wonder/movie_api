@@ -120,3 +120,4 @@
 ::1 - - [13/Jun/2023:03:02:49 +0000] "POST /users?Username=lemon&Password=italy HTTP/1.1" 400 19 "-" "PostmanRuntime/7.32.2"
 ::1 - - [13/Jun/2023:03:03:04 +0000] "POST /users?Username=lemon&Password=italy HTTP/1.1" 400 19 "-" "PostmanRuntime/7.32.2"
 ::1 - - [13/Jun/2023:03:07:07 +0000] "GET /login HTTP/1.1" 404 144 "-" "PostmanRuntime/7.32.2"
+::1 - - [14/Jun/2023:04:12:44 +0000] "GET /movies HTTP/1.1" 201 6855 "-" "PostmanRuntime/7.32.2"
