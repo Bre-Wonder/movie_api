@@ -127,7 +127,7 @@ app.get('/director/:directorName', (req, res) => {
 
 //creating a user
 app.post('/users', (req, res) => {
-    let hashedPassword = Users.hashedPassword(req.body.Password);
+    let hashedPassword = Users.hashPassword(req.body.Password);
     Users.findOne({ Username: req.body.Username})
         .then ((user) => {
           if (user) {
