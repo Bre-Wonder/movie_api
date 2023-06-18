@@ -31,7 +31,7 @@ const accessLogStream = fs.createWriteStream(path.join(__dirname, 'memoryLog.tex
 
 app.use(morgan('combined', {stream: accessLogStream}));
     
-
+/*
 let topMovies = [
     {
       title: 'Hunt for the Wilderpeople'
@@ -67,7 +67,7 @@ let topMovies = [
         title: 'How to Loose a A Guy in Ten Days'
     }
 
-]
+]*/
 
 app.get('/', (req, res) => {
     res.send('You found my favorite movies!')
