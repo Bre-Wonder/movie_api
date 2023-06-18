@@ -20,6 +20,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 let auth = require('./auth')(app);
+const cors = require('cors');
+app.use(cors());
 const passport = require('passport');
 require('./passport');
 
