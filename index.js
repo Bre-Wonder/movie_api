@@ -12,6 +12,8 @@ const express = require('express'),
     morgan = require('morgan'),
     path = require('path');
 
+const { check, validationResult } = require('express-validator'); //is this the right spot for this?
+
 const bodyParser = require('body-parser');
 const { generateKey } = require('crypto');
 
