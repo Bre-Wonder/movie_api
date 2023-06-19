@@ -135,7 +135,7 @@ app.post('/users',
   check('Password', 'Password is required').not().isEmpty(),
   check('Email', 'Email does not appear to be valid').isEmail()
 ], (req, res) => {
-    let erros = validationResult(req);
+    let errors = validationResult(req);
 
     if(!error.isEmpty()) {
       return res.status(422).json({ errors: errors.array() });
