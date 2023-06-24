@@ -1,0 +1,4 @@
+{"_id":{"$oid":"64572a46ed070ba0594ec4da"},"Name":"Juliet O'hara","Username":"SantaBarbara","Password":"Blondie123","Email":"santabarbarapoice@police.org","Birthday":{"$date":"1984-03-25T00:00:00Z"},"FavoriteMovies":"64508555ed070ba0594ec4d1"}
+{"_id":{"$oid":"64572be2ed070ba0594ec4db"},"Name":"Shawn Spencer","Username":"ShawnSpencer","Password":"psych123","Email":"psychconsulting2@gmail.com","Birthday":{"$date":"1984-06-24T00:00:00Z"}}
+{"_id":{"$oid":"64572ddaed070ba0594ec4dc"},"Name":"Burton Guster","Username":"SuperSniffer","Password":"theblueberry","Email":"psychconsulting1@gmail.com","Birthday":{"$date":"1984-09-06T00:00:00Z"}}
+{"_id":{"$oid":"64572f17ed070ba0594ec4dd"},"Name":"Carlton Lassiter","Username":"Jebediah","Password":"Danger","Email":"carltonlassiter@police.gov","Birthday":{"$date":"1975-07-04T00:00:00Z"}}
