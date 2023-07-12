@@ -127,6 +127,13 @@ app.post('/users',
         });
 });
 
+//find user information
+app.get('/users/:Username', (req, res) => {
+  Users.findOne({Username: req.params.Username })
+
+
+})
+
 //updating user information
 app.put('/users/:Username', 
 [
