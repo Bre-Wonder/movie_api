@@ -1,75 +1,33 @@
 const mongoose = require('mongoose');
 const Models = require('./models.js');
-
 const Movies = Models.Movie;
 const Users = Models.User;
+const express = require('express'),
+    fs = require('fs'),
+    morgan = require('morgan'),
+    path = require('path');
+const { check, validationResult } = require('express-validator'); //is this the right spot for this?
+const bodyParser = require('body-parser');
+const { generateKey } = require('crypto');
+const cors = require('cors');
+app.use(cors());
+const passport = require('passport');
+require('./passport');
 
 mongoose.connect( process.env.CONNECTION_URI, 
  { useNewUrlParser: true});
 /*mongoose.connect('mongodb://localhost:27017/myFlixDB', 
  { useNewUrlParser: true});*/  //hosting database locally
 
-const express = require('express'),
-    fs = require('fs'),
-    morgan = require('morgan'),
-    path = require('path');
-
-const { check, validationResult } = require('express-validator'); //is this the right spot for this?
-
-const bodyParser = require('body-parser');
-const { generateKey } = require('crypto');
-
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 let auth = require('./auth')(app);
-const cors = require('cors');
-app.use(cors());
-const passport = require('passport');
-require('./passport');
 
 const accessLogStream = fs.createWriteStream(path.join(__dirname, 'memoryLog.text'), {flags: 'a'})
 
 app.use(morgan('combined', {stream: accessLogStream}));
-    
-/*
-let topMovies = [
-    {
-      title: 'Hunt for the Wilderpeople'
-    },
-    {
-        title: 'Roman Holiday'
-    },
-    {
-        title: 'The Parent Trap'
-    },
-    {
-        title: 'Sisterhood of the Traveling Pants'
-    },
-    {
-        title: 'Emperor\'s New Groove'
-    },
-    {
-        title: 'The Little Mermaid'
-    },
-    {
-        title: 'Ocean\'s Eleven'
-    },
-    {
-        title: 'Crazy Rich Asians'
-    },
-    {
-        title: 'La La Land'
-    },
-    {
-        title: 'Romancing the Stone'
-    },
-    {
-        title: 'How to Loose a A Guy in Ten Days'
-    }
-
-]*/
 
 app.get('/', (req, res) => {
     res.send('You found my favorite movies!')
