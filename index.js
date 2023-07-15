@@ -10,11 +10,11 @@ const { check, validationResult } = require('express-validator');
 const bodyParser = require('body-parser');
 const { generateKey } = require('crypto');
 const cors = require('cors');
-app.use(cors());
+
 const passport = require('passport');
 require('./passport');
 
-mongoose.connect( process.env.CONNECTION_URI, 
+mongoose.connect( process.env.CONNECTION_URI || "mongodb+srv://BreWonderClusterAdmin:roselovely1994@cluster0.zrdk4ni.mongodb.net/myFlixDB?retryWrites=true&w=majority", 
  { useNewUrlParser: true});
 /*mongoose.connect('mongodb://localhost:27017/myFlixDB', 
  { useNewUrlParser: true});*/  //hosting database locally
@@ -22,6 +22,7 @@ mongoose.connect( process.env.CONNECTION_URI,
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cors());
 
 let auth = require('./auth')(app);
 
