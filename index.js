@@ -41,7 +41,7 @@ app.get('/documentation', (req, res) => {
 app.use('/documentation', express.static('public'));
 
 // get a list of all movies
-app.get('/movies', passport.authenticate('jwt', {session: false}), (req, res) => {
+app.get('/movies', (req, res) => {
     Movies.find()
       .then ((movies) => {
         res.status(201).json(movies);
@@ -53,7 +53,7 @@ app.get('/movies', passport.authenticate('jwt', {session: false}), (req, res) =>
 });
 
 // find movie by title
-app.get('/movies/:movieTitle', (req, res) => {
+app.get('/movies/:movieTitle', passport.authenticate('jwt', {session: false}), (req, res) => {
     Movies.findOne({ Title: req.params.movieTitle})
         .then((movie) => {
             res.json(movie);
