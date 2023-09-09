@@ -16,8 +16,6 @@ require('./passport');
 
 mongoose.connect( process.env.CONNECTION_URI || "mongodb+srv://BreWonderClusterAdmin:roselovely1994@cluster0.zrdk4ni.mongodb.net/myFlixDB?retryWrites=true&w=majority", 
  { useNewUrlParser: true});
-/*mongoose.connect('mongodb://localhost:27017/myFlixDB', 
- { useNewUrlParser: true});*/  //hosting database locally
 
 const app = express();
 app.use(bodyParser.json());
