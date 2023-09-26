@@ -181,7 +181,7 @@ app.post('/users/:Username/movies/:movieId', passport.authenticate('jwt', {sessi
         $push: { FavoriteMovies: req.params.movieId}    
     },
     { new: true},
-    ) .then(
+    ).then(
         (updatedUser) => {
                 res.json(updatedUser);
         })
@@ -196,7 +196,8 @@ app.delete('/users/:Username/movies/:movieId', passport.authenticate('jwt', {ses
     Users.findOneAndUpdate({Username: req.params.Username }, {
         $pull: { FavoriteMovies: req.params.movieId}
     },
-    ) .then (
+    { new: true},
+    ).then(
         (updatedUser) => {   
           res.json(updatedUser);
         })
