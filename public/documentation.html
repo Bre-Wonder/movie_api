@@ -7,6 +7,7 @@
 <p>A server-side web application that displays movie titles, genres, and directors. The user will be able to sign up, update their personal information, and create a list of their favorite movies.</p>
 
 <table>
+    
     <tr>
       <th>Endpoint URL</th>
       <th>HTTP Method</th>
@@ -15,6 +16,7 @@
       <th>Request body data format w/ example</th>
       <th>Response body data format</th>
     </tr>
+    <!-- Getting a List of All movies -->
     <tr>
       <td>/movies</td>
       <td>GET</td>
@@ -23,6 +25,7 @@
       <td>None</td>
       <td>A JSON object indluding the titles of all movies</td>
     </tr>
+    <!-- Finding a Movie By Its Title -->
     <tr>
       <td>/movies/:movieTitle</td>
       <td>GET</td>
@@ -31,6 +34,7 @@
       <td>None</td>
       <td>A JSON object holding data about all movie details</td>
     </tr>
+    <!-- Find a Movie Genre by Genre Name -->
     <tr>
       <td>/genre/:genreName</td>
       <td>GET</td>
@@ -39,6 +43,7 @@
       <td>None</td>
       <td>A JSON object holding data about a movie's genre</td>
     </tr>
+    <!-- Find a Movie Director by Director Name -->
     <tr>
       <td>/director/:directorName</td>
       <td>GET</td>
@@ -47,6 +52,7 @@
       <td>None</td>
       <td>A JSON object holding data about the movie's director</td>
     </tr>
+    <!-- Creating a User -->
     <tr>
         <td>/users</td>
         <td>POST</td>
@@ -55,6 +61,7 @@
         <td>A JSON objust with new user: Juliet O'hara</td>
         <td> A JSON object hold the data about a user {name: "Juliet O'hara", username: detective123} </td>
         </tr>
+      <!-- Updating a Specific Users Information   -->
       <tr>
         <td>/users/:Username</td>
         <td>PUT</td>
@@ -63,6 +70,7 @@
         <td>None</td>
         <td>A JSON object holds the updated username for the user {name: "Juliet O'hara", username: psyschoffice}</td>
       </tr>
+      <!-- Adding a Favorite Movie to a User's List -->
       <tr>
         <td>/users/:Username/movies/:movieId</td>
         <td>POST</td>
@@ -71,6 +79,7 @@
         <td>Movie Added to Favorites {movieId: "64507fc2ed070ba0594ec4d0"}</td>
         <td>A message that movie by its objectId has been successfully added to Favorite's List</td>
       </tr>
+      <!-- Deleting a Favorite Movie from a User's List -->
       <tr>
         <td>/users/:Username/movies/:movieId</td>
         <td>DELETE</td>
@@ -79,6 +88,7 @@
         <td>None</td>
         <td>A message that movie has been removed from Favorite's List</td>
       </tr>
+      <!-- Deregister a User -->
       <tr>
         <td>users/:Username</td>
         <td>DELETE</td>
