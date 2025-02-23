@@ -30,6 +30,13 @@ const accessLogStream = fs.createWriteStream(path.join(__dirname, 'memoryLog.tex
 
 app.use(morgan('combined', {stream: accessLogStream}));
 
+/**
+ * Endpoint URL - Sends the request to pull all the movies from the data base.
+ * 
+ * @param {array} body of data format
+ * @return {array} a list of movies
+ * 
+ */
 app.get('/', (req, res) => {
     res.send('You found my favorite movies!')
 });
