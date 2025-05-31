@@ -47,6 +47,15 @@ app.get('/documentation', (req, res) => {
 
 app.use('/documentation', express.static('public'));
 
+/** 
+ * 
+ * Endpoint movies - user to get a list of movies
+ * 
+ * @param {}
+ * @param {}
+ * 
+ */
+
 // get a list of all movies
 app.get('/movies', passport.authenticate('jwt', {session: false}), (req, res) => {
     Movies.find()
@@ -59,7 +68,16 @@ app.get('/movies', passport.authenticate('jwt', {session: false}), (req, res) =>
       });
 });
 
-// find movie by title
+/** 
+ * 
+ * Endpoint movies/movieTitle - user to find a movie by title
+ * 
+ * @param {}
+ * @param {}
+ * 
+ */
+
+// find movie by Title
 app.get('/movies/:movieTitle', passport.authenticate('jwt', {session: false}), (req, res) => {
     Movies.findOne({ Title: req.params.movieTitle})
         .then((movie) => {
@@ -71,7 +89,16 @@ app.get('/movies/:movieTitle', passport.authenticate('jwt', {session: false}), (
         });
 });
 
-// find a movie genre by genre name
+/** 
+ * 
+ * Endpoint genre/genreName - find movies with matching genre name
+ * 
+ * @param {}
+ * @param {}
+ * 
+ */
+
+// find movie by genre
 app.get('/genre/:genreName', passport.authenticate('jwt', {session: false}), (req, res) => {
     Movies.findOne({ "Genre.Name": req.params.genreName})
         .then((movie) => {
@@ -82,6 +109,15 @@ app.get('/genre/:genreName', passport.authenticate('jwt', {session: false}), (re
             res.status(500).send('Error: ' + err);
         });
 });
+
+/** 
+ * 
+ * Endpoint director/directorName - find movies with matching director by name
+ * 
+ * @param {}
+ * @param {}
+ * 
+ */
 
 // find a movie director by director name
 app.get('/director/:directorName', passport.authenticate('jwt', {session: false}), (req, res) => {
@@ -94,6 +130,15 @@ app.get('/director/:directorName', passport.authenticate('jwt', {session: false}
             res.status(500).send('Error: ' + err);
         });
 });
+
+/** 
+ * 
+ * Endpoint users - creating a user object
+ * 
+ * @param {}
+ * @param {}
+ * 
+ */
 
 //creating a user
 app.post('/users', 
@@ -135,6 +180,15 @@ app.post('/users',
         });
 });
 
+/** 
+ * 
+ * Endpoint user/Username - find a user by their Username
+ * 
+ * @param {}
+ * @param {}
+ * 
+ */
+
 //find user information
 app.get('/users/:Username', passport.authenticate('jwt', {session: false}), (req, res) => {
   Users.findOne({Username: req.params.Username })
@@ -146,6 +200,15 @@ app.get('/users/:Username', passport.authenticate('jwt', {session: false}), (req
       res.status(500).send('Error: ' + err);
     });
   });
+
+/** 
+ * 
+ * Endpoint user/Username - update a created user's information
+ * 
+ * @param {}
+ * @param {}
+ * 
+ */
 
 //updating user information
 app.put('/users/:Username', 
@@ -182,6 +245,15 @@ app.put('/users/:Username',
       });
 });
 
+/** 
+ * 
+ * Endpoint users/Username/movies/movieId - allowing user to a movie to their favorites list
+ * 
+ * @param {}
+ * @param {}
+ * 
+ */
+
 //adding a favorite movies to a user's list
 app.post('/users/:Username/movies/:movieId', passport.authenticate('jwt', {session: false}), (req, res) => {
     Users.findOneAndUpdate({ Username: req.params.Username }, {
@@ -198,6 +270,15 @@ app.post('/users/:Username/movies/:movieId', passport.authenticate('jwt', {sessi
           });
 });
 
+/** 
+ * 
+ * Endpoint users/Username/movies/movieID - deleting a movie from a user's favorite list
+ * 
+ * @param {}
+ * @param {}
+ * 
+ */
+
 // delete a movie from user favorite movie list
 app.delete('/users/:Username/movies/:movieId', passport.authenticate('jwt', {session: false}), (req, res) => {
     Users.findOneAndUpdate({Username: req.params.Username }, {
@@ -213,6 +294,15 @@ app.delete('/users/:Username/movies/:movieId', passport.authenticate('jwt', {ses
         res.status(500).send('Error: ' + err);
       });
 });
+
+/** 
+ * 
+ * Endpoint user/Username - delete a created user
+ * 
+ * @param {}
+ * @param {}
+ * 
+ */
 
 // deregister a user
 app.delete('/users/:Username', passport.authenticate('jwt', {session: false}), (req, res) => {
