@@ -50,9 +50,10 @@ app.use('/documentation', express.static('public'));
 /** 
  * 
  * Endpoint movies - user to get a list of movies
+ * URL : 
  * 
- * @param {}
- * @param {}
+ * @param {array} req - list of movies
+ * @param {array} res - list of movies
  * 
  */
 
@@ -72,8 +73,8 @@ app.get('/movies', passport.authenticate('jwt', {session: false}), (req, res) =>
  * 
  * Endpoint movies/movieTitle - user to find a movie by title
  * 
- * @param {}
- * @param {}
+ * @param {array} req - list of movies by a certain title
+ * @param {array} res - list of movies by a certain title
  * 
  */
 
@@ -93,8 +94,8 @@ app.get('/movies/:movieTitle', passport.authenticate('jwt', {session: false}), (
  * 
  * Endpoint genre/genreName - find movies with matching genre name
  * 
- * @param {}
- * @param {}
+ * @param {array} req - 
+ * @param {array} res - 
  * 
  */
 
