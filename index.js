@@ -1,4 +1,24 @@
+/**
+ * @file This is the main server file for the myFlix API, a movie database web application.
+ * @version 1.0.0
+ * @requires express
+ * @requires mongoose
+ * @requires morgan
+ * @requires body-parser
+ * @requires passport
+ * @requires cors
+ */
+
+/**
+ * Imports and configures Mongoose to connect to the database.
+ * Uses either environment variable CONNECTION_URI or defaults to MongoDB Atlas URL.
+ */
 const mongoose = require('mongoose');
+
+/**
+ * @module Models
+ * @requires ./models.js
+ */
 const Models = require('./models.js');
 const Movies = Models.Movie;
 const Users = Models.User;
@@ -19,45 +39,55 @@ mongoose.connect( process.env.CONNECTION_URI || "mongodb+srv://BreWonderClusterA
 /*mongoose.connect('mongodb://localhost:27017/myFlixDB', 
  { useNewUrlParser: true});*/  //hosting database locally
 
+
+/**
+ * Express app instance.
+ * @const
+ */
 const app = express();
+
+/** Middlewares */
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
+/**
+ * @middleware auth
+ * Initializes Passport authentication.
+ */
 let auth = require('./auth')(app);
 
+/**
+ * @middleware morgan
+ * Logs HTTP requests to memoryLog.text.
+ */
 const accessLogStream = fs.createWriteStream(path.join(__dirname, 'memoryLog.text'), {flags: 'a'})
 
 app.use(morgan('combined', {stream: accessLogStream}));
 
 /**
- * Endpoint URL - Sends the request to pull all the movies from the data base.
- * 
- * @param {array} body of data format
- * @return {array} a list of movies
- * 
+ * @route GET /
+ * @description Welcome message.
  */
 app.get('/', (req, res) => {
     res.send('You found my favorite movies!')
 });
 
+/**
+ * @route GET /documentation
+ * @description Serves static HTML documentation.
+ */
 app.get('/documentation', (req, res) => {
     res.send('public/documentation.html', { root: __dirname});
 });
 
 app.use('/documentation', express.static('public'));
 
-/** 
- * 
- * Endpoint movies - user to get a list of movies
- * URL : 
- * 
- * @param {array} req - list of movies
- * @param {array} res - list of movies
- * 
+/**
+ * @route GET /movies
+ * @description Return a list of all movies.
+ * @access Protected
  */
-
-// get a list of all movies
 app.get('/movies', passport.authenticate('jwt', {session: false}), (req, res) => {
     Movies.find()
       .then ((movies) => {
@@ -69,16 +99,11 @@ app.get('/movies', passport.authenticate('jwt', {session: false}), (req, res) =>
       });
 });
 
-/** 
- * 
- * Endpoint movies/movieTitle - user to find a movie by title
- * 
- * @param {array} req - list of movies by a certain title
- * @param {array} res - list of movies by a certain title
- * 
+/**
+ * @route GET /movies/:movieTitle
+ * @description Return data about a single movie by title.
+ * @access Protected
  */
-
-// find movie by Title
 app.get('/movies/:movieTitle', passport.authenticate('jwt', {session: false}), (req, res) => {
     Movies.findOne({ Title: req.params.movieTitle})
         .then((movie) => {
@@ -90,16 +115,11 @@ app.get('/movies/:movieTitle', passport.authenticate('jwt', {session: false}), (
         });
 });
 
-/** 
- * 
- * Endpoint genre/genreName - find movies with matching genre name
- * 
- * @param {array} req - 
- * @param {array} res - 
- * 
+/**
+ * @route GET /genre/:genreName
+ * @description Return genre data for a given genre name.
+ * @access Protected
  */
-
-// find movie by genre
 app.get('/genre/:genreName', passport.authenticate('jwt', {session: false}), (req, res) => {
     Movies.findOne({ "Genre.Name": req.params.genreName})
         .then((movie) => {
@@ -111,16 +131,11 @@ app.get('/genre/:genreName', passport.authenticate('jwt', {session: false}), (re
         });
 });
 
-/** 
- * 
- * Endpoint director/directorName - find movies with matching director by name
- * 
- * @param {}
- * @param {}
- * 
+/**
+ * @route GET /director/:directorName
+ * @description Return director data for a given director name.
+ * @access Protected
  */
-
-// find a movie director by director name
 app.get('/director/:directorName', passport.authenticate('jwt', {session: false}), (req, res) => {
     Movies.findOne({ "Director.Name": req.params.directorName})
         .then((movie) => {
@@ -132,16 +147,13 @@ app.get('/director/:directorName', passport.authenticate('jwt', {session: false}
         });
 });
 
-/** 
- * 
- * Endpoint users - creating a user object
- * 
- * @param {}
- * @param {}
- * 
+/**
+ * @route POST /users
+ * @description Register a new user.
+ * @param {string} Username - must be alphanumeric and at least 5 characters.
+ * @param {string} Password - required.
+ * @param {string} Email - must be valid format.
  */
-
-//creating a user
 app.post('/users', 
 [
   check('Username', 'Username is required').isLength({min: 5}),
@@ -181,16 +193,11 @@ app.post('/users',
         });
 });
 
-/** 
- * 
- * Endpoint user/Username - find a user by their Username
- * 
- * @param {}
- * @param {}
- * 
+/**
+ * @route GET /users/:Username
+ * @description Get user data by username.
+ * @access Protected
  */
-
-//find user information
 app.get('/users/:Username', passport.authenticate('jwt', {session: false}), (req, res) => {
   Users.findOne({Username: req.params.Username })
     .then((user) => {
@@ -202,16 +209,11 @@ app.get('/users/:Username', passport.authenticate('jwt', {session: false}), (req
     });
   });
 
-/** 
- * 
- * Endpoint user/Username - update a created user's information
- * 
- * @param {}
- * @param {}
- * 
+/**
+ * @route PUT /users/:Username
+ * @description Update user information.
+ * @access Protected
  */
-
-//updating user information
 app.put('/users/:Username', 
 [
     check('Username', 'Username is required').isLength({min: 5}),
@@ -246,16 +248,11 @@ app.put('/users/:Username',
       });
 });
 
-/** 
- * 
- * Endpoint users/Username/movies/movieId - allowing user to a movie to their favorites list
- * 
- * @param {}
- * @param {}
- * 
+/**
+ * @route POST /users/:Username/movies/:movieId
+ * @description Add movie to user's list of favorites.
+ * @access Protected
  */
-
-//adding a favorite movies to a user's list
 app.post('/users/:Username/movies/:movieId', passport.authenticate('jwt', {session: false}), (req, res) => {
     Users.findOneAndUpdate({ Username: req.params.Username }, {
         $push: { FavoriteMovies: req.params.movieId}    
@@ -271,16 +268,11 @@ app.post('/users/:Username/movies/:movieId', passport.authenticate('jwt', {sessi
           });
 });
 
-/** 
- * 
- * Endpoint users/Username/movies/movieID - deleting a movie from a user's favorite list
- * 
- * @param {}
- * @param {}
- * 
+/**
+ * @route DELETE /users/:Username/movies/:movieId
+ * @description Remove movie from user's favorites.
+ * @access Protected
  */
-
-// delete a movie from user favorite movie list
 app.delete('/users/:Username/movies/:movieId', passport.authenticate('jwt', {session: false}), (req, res) => {
     Users.findOneAndUpdate({Username: req.params.Username }, {
         $pull: { FavoriteMovies: req.params.movieId}
@@ -296,16 +288,11 @@ app.delete('/users/:Username/movies/:movieId', passport.authenticate('jwt', {ses
       });
 });
 
-/** 
- * 
- * Endpoint user/Username - delete a created user
- * 
- * @param {}
- * @param {}
- * 
+/**
+ * @route DELETE /users/:Username
+ * @description Deregister user.
+ * @access Protected
  */
-
-// deregister a user
 app.delete('/users/:Username', passport.authenticate('jwt', {session: false}), (req, res) => {
     Users.findOneAndRemove({ Username: req.params.Username })
       .then ((user) => {
@@ -321,11 +308,18 @@ app.delete('/users/:Username', passport.authenticate('jwt', {session: false}), (
       });
 });
 
+/**
+ * @middleware ErrorHandler
+ * @description Catches unhandled errors and responds with 500.
+ */
 app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).send('Whoops, something went wrong!');
 });
 
+/**
+ * @description Starts the server and listens on environment port or default 8080.
+ */
 const port = process.env.PORT || 8080;
 app.listen(port, '0.0.0.0',() => {
   console.log('Listening on Port ' + port);
