@@ -11,17 +11,15 @@ Express | Node.js | MongoDB |
 
 
 ### API Used:
-
+I built my own API in this project through EXPRESS and Node.js. API is hosted in Heroku.
 
 ### Learning Moments: 
 
 
 ### What would I do differently? 
-
-
-### What was the biggest learning take aways? 
+A helpful contribution to this API would have been to have an endpoint for a user's favorite movies. An endpoint like this would allow for quicker load times instead of the current solution. Right now all the movies are loading from the database and filtering out the ones that are not the user's favorite list. Depending on how big the application may get, this could prevent a lag in waiting for all the movies to load. This allows for the application to be more scalable with a bigger database. 
 
 
 GitHub Repository site: https://github.com/Bre-Wonder/movie_api
 
-Live Site: 
+Live Site: API hosted on Heroku
