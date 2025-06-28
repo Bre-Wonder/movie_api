@@ -8,12 +8,30 @@ Express | Node.js | MongoDB |
 
 
 ### How to start up this project?
+I'm a MAC user, all instructions will be geared that way since that's the way that I have mine set up. 
+
+Installing Node: 
+  Create an Apple Developer Account
+  From your Apple Developer account, download Xcode from the App Store. Make sure to install it.
+  In your terminal, run `xcode-select --install`
+  Check to see which shell is being used on your terminal
+  See Installing and Updating for `nvm` on their repository
+  Test to see if installation was successful by running `command -v nvm`
+  To install the latest version of Node run - `nvm install lts/*` or `nvm install --lts`
+  To check your version of node or to confirm it was installed run `node -v`
+
+Install Express: 
+  In your command line in the terminal, run `npm install express`
+
+Install body-parser:
+  In your command line in the terminal, run `npm install body-parser`
+
+Note: It will be helpful when writing your endpoints to know which will need to be Created, Updated, Read, and Deleted. 
+
 
 
 ### API Used:
 I built my own API in this project through EXPRESS and Node.js. API is hosted in Heroku.
-
-### Learning Moments: 
 
 
 ### What would I do differently? 
