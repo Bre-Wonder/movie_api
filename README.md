@@ -28,8 +28,6 @@ Install body-parser:
 
 Note: It will be helpful when writing your endpoints to know which will need to be Created, Updated, Read, and Deleted. 
 
-
-
 ### API Used:
 I built my own API in this project through EXPRESS and Node.js. API is hosted in Heroku.
 
