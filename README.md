@@ -38,4 +38,4 @@ A helpful contribution to this API would have been to have an endpoint for a use
 
 GitHub Repository site: https://github.com/Bre-Wonder/movie_api
 
-Live Site: API hosted on Heroku
+Live Site: https://bre-wonder-cinema-app-8704977a1a65.herokuapp.com
